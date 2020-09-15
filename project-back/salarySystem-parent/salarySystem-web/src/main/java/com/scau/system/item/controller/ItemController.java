@@ -1,8 +1,8 @@
-package com.scau.systrm.item.controller;
+package com.scau.system.item.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.scau.systrm.item.entity.Item;
-import com.scau.systrm.item.service.ItemService;
+import com.scau.system.item.entity.Item;
+import com.scau.system.item.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
