@@ -92,7 +92,7 @@ public class SalaryResult {
     private Double compamyPaidHousefund;
 
     //个人缴纳住房公积金
-    private Double employee_paid_housefund;
+    private Double employeePaidHousefund;
 
     //个人所得税
     private Double tax;
