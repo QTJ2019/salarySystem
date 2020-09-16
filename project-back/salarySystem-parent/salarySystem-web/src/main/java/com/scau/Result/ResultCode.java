@@ -1,4 +1,4 @@
-package com.scau.system.item.Result;
+package com.scau.Result;
 
 /**
  * @Author: qtj
