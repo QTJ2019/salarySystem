@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableTransactionManagement指的是该类具有事务处理的功能。
 @Configuration
 //@configurtaion 表明该类是一个配置类，springboot在启动的时候，就会根据该注解配置应用程序。
-@MapperScan("com.scau.*.*.mapper")
+@MapperScan("com.scau.mapper")
 //MapperScan是mapper扫描器，这样的话springboot  就能够够根据mapper接口自动生成对应的实现类。
 public class MyBatisPlusConfig {
     @Bean

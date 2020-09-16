@@ -1,12 +1,12 @@
-package com.scau.system.item.mapper;
+package com.scau.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.scau.system.item.entity.Item;
-import org.apache.ibatis.annotations.Mapper;
+import com.scau.entity.ImportItem;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Component
-public interface ItemMapper extends BaseMapper<Item> {
+public interface ImportItemMapper extends BaseMapper<ImportItem> {
+
 }
