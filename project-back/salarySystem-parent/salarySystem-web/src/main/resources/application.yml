@@ -14,3 +14,13 @@ spring:
 jwt:
   secret: com.scau
   expiration: 3000000
+
+mybatis-plus:
+  mapper-locations: classpath*:xml/*.xml
+
+logging:
+  level:
+    root: warn
+    com.scau.mapper: trace
+  pattern:
+    console: '%p%m%n'

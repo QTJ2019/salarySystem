@@ -8,6 +8,7 @@ import com.scau.service.SalaryResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class SalaryResultServiceImpl extends ServiceImpl<SalaryResultMapper, Sal
     }
 
     @Override
-    public List<SalaryResult> querrySalaryForm(Map<String, Object> columnMap) {
-        return salaryResultMapper.selectByMap(columnMap);
+    public List<SalaryResult> querrySalaryForm(String deptName, Date startDate, Date endDate, Integer employeeId) {
+        return salaryResultMapper.querySalaryForm(deptName,startDate,endDate,employeeId);
     }
 }
