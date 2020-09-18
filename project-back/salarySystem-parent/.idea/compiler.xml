@@ -16,7 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="salarySystem-common" options="-parameters" />
-      <module name="salarySystem-web" options="" />
+      <module name="salarySystem-web" options="-parameters" />
     </option>
   </component>
 </project>
