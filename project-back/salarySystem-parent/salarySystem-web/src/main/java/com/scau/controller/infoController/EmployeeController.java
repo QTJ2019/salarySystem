@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-09-18
  */
 @RestController
-@RequestMapping("/payroll/employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
 }
