@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scau.mapper.SalaryResultMapper">
+	<select id="querySalaryForm" resultType="com.scau.entity.SalaryResult">
+		SELECT a.*
+		FROM salary_result a join employee b on a.employee_id = b.id
+	  	<where>
+			<if test="deptName != null">
+				and departmentName = #{deptName}
+			</if>
+			<if test="startMonth != null and endMonth != null">
+				and a.date between #{startMonth} and #{endMonth}
+			</if>
+			<if test="employeeId != null">
+				and a.employee_id = #{employeeId}
+			</if>
+		</where>
+
+	</select>
+
+</mapper>
+    
