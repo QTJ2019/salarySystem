@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SalaryResultTest {
+public class SalaryResultMapperTest {
     @Autowired
     private SalaryResultMapper salaryResultMapper;
 
@@ -40,9 +40,11 @@ public class SalaryResultTest {
     }
 
     @Test
-    public void queryDeptStatisticTest(){
-
-        List<DeptStatistic> list = salaryResultMapper.queryDeptStatistic(null,null,null);
+    public void queryDeptStatisticTest() throws Exception{
+        SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
+        Date startMonth = temp.parse("2020-01-01");
+        Date endMonth = temp.parse("2020-01-31");
+        List<DeptStatistic> list = salaryResultMapper.queryDeptStatistic(null,startMonth,endMonth);
         Assert.assertEquals(1,list.size());
     }
 }

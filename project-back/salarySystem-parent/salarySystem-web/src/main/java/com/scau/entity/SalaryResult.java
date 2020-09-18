@@ -132,7 +132,7 @@ public class SalaryResult {
     @JsonFormat(pattern = "yyyy-MM",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM")
     @ExcelProperty("时间")
-    private Data date;
+    private Date date;
 
 
 
