@@ -1,5 +1,6 @@
 package com.scau.mapper;
 
+import com.scau.entity.CompanyStatistic;
 import com.scau.entity.DeptStatistic;
 import com.scau.entity.SalaryResult;
 import org.junit.Assert;
@@ -46,5 +47,14 @@ public class SalaryResultMapperTest {
         Date endMonth = temp.parse("2020-01-31");
         List<DeptStatistic> list = salaryResultMapper.queryDeptStatistic(null,startMonth,endMonth);
         Assert.assertEquals(1,list.size());
+    }
+
+    @Test
+    public  void queryCompanyStatisTest() throws Exception{
+        SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
+        Date startMonth = temp.parse("2020-01-01");
+        Date endMonth = temp.parse("2020-01-31");
+        CompanyStatistic companyStatistic = salaryResultMapper.queryCompanyStatistic(startMonth,endMonth);
+        System.out.println(companyStatistic.getAvgActualSalary());
     }
 }

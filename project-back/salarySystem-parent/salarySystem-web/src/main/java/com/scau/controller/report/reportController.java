@@ -2,6 +2,7 @@ package com.scau.controller.report;
 
 import com.alibaba.excel.EasyExcel;
 import com.scau.Result.Result;
+import com.scau.entity.CompanyStatistic;
 import com.scau.entity.DeptStatistic;
 import com.scau.entity.SalaryResult;
 import com.scau.service.SalaryResultService;
@@ -144,4 +145,35 @@ public class reportController {
         }
         return result;
     }
+
+    @RequestMapping("/getcompanystatistic")
+    private Result getCompanyStatistic(String start, String end){
+        Result result = Result.ok();
+        CompanyStatistic companyStatistic = null;
+        Date startDate = null;
+        Date endDate = null;
+        Map<String,Object> data = null;
+        if (start==null && end!=null)
+            return Result.error().message("请选择开始时间");
+        if (start!=null && end == null)
+            return Result.error().message("请选择结束时间");
+        try {
+            if (start!= null && end != null){
+                startDate = CalendarUtil.getFirstDateOfMonth(start);
+                endDate = CalendarUtil.getLastDateOfMonth(end);
+            }
+        }catch (ParseException e){
+            return Result.error().message("日期转换出错");
+        }
+        try {
+            companyStatistic =  salaryResultService.queryCompanyStatistic(startDate,endDate);
+            data = new HashMap<>();
+            data.put("companyStatistic",companyStatistic);
+            result.data(data);
+        } catch (Exception e) {
+            return Result.error().message("查询数据失败");
+        }
+        return result;
+    }
+
 }

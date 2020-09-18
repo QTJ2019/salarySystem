@@ -1,6 +1,7 @@
 package com.scau.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.scau.entity.CompanyStatistic;
 import com.scau.entity.DeptStatistic;
 import com.scau.entity.SalaryResult;
 import org.apache.ibatis.annotations.Param;
@@ -28,5 +29,5 @@ public interface SalaryResultMapper extends BaseMapper<SalaryResult> {
                                            @Param("startMonth") Date startMonth,
                                            @Param("endMonth") Date endMonth);
 
-
+     CompanyStatistic queryCompanyStatistic(@Param("startMonth") Date startMonth,@Param("endMonth") Date endMonth);
 }

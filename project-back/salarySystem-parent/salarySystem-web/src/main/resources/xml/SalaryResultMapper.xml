@@ -11,6 +11,12 @@
         <result property="minBasicSalary" column="minSalary"/>
         <result property="maxBasicSalary" column="maxSalary"/>
     </resultMap>
+    <resultMap id="companyStatisticMap" type="com.scau.entity.CompanyStatistic">
+        <result property="sumActualSalary" column="sumActualSalary"/>
+        <result property="avgActualSalary" column="avgActualSalary"/>
+        <result property="minActualSalary" column="minActualSalary"/>
+        <result property="maxActualSalary" column="maxActualSalary"/>
+    </resultMap>
 	<select id="querySalaryForm" resultType="com.scau.entity.SalaryResult">
 		SELECT a.*
 		FROM salary_result a join employee b on a.employee_id = b.id
@@ -53,6 +59,25 @@
    ORDER BY a.departmentId;
 
 	</select>
+
+    <select id="queryCompanyStatistic" resultType="com.scau.entity.CompanyStatistic">
+      SELECT
+        SUM(value) as sumActualSalary,
+	    AVG(value) as avgActualSalary,
+	    MIN(value) as minActualSalary,
+	    MAX(value) as maxActualSalary
+      FROM
+	    actual_salary_item
+	  <where>
+          item_id = 13
+          and
+          state=2
+          <if test="startMonth != null and endMonth != null">
+              and date between #{startMonth} and #{endMonth}
+          </if>
+      </where>
+
+    </select>
 
 </mapper>
     

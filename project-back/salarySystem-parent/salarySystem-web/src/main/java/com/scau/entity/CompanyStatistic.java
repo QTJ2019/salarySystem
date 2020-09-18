@@ -14,4 +14,9 @@ public class CompanyStatistic {
     private Double sumActualSalary;
 
     //公司实发平均工资
+    private Double avgActualSalary;
+
+    private Double minActualSalary;
+
+    private Double maxActualSalary;
 }

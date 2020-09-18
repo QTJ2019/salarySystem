@@ -2,6 +2,7 @@ package com.scau.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.scau.entity.CompanyStatistic;
 import com.scau.entity.DeptStatistic;
 import com.scau.entity.SalaryResult;
 import com.scau.mapper.SalaryResultMapper;
@@ -36,5 +37,10 @@ public class SalaryResultServiceImpl extends ServiceImpl<SalaryResultMapper, Sal
     @Override
     public List<DeptStatistic> queryDeptStatistic(String deptName, Date startMonth, Date endMonth) {
         return salaryResultMapper.queryDeptStatistic( deptName, startMonth,  endMonth);
+    }
+
+    @Override
+    public CompanyStatistic queryCompanyStatistic(Date startMonth, Date endMonth) {
+        return salaryResultMapper.queryCompanyStatistic(startMonth,endMonth);
     }
 }
