@@ -27,11 +27,20 @@ public class StationController {
     @Autowired
     private DepartmentService departmentService;
 
+    /**
+     * 通过excel表添加工种
+     * @param file
+     * @return
+     */
     @PostMapping("addStation")
     public Result addStation(MultipartFile file){
         stationService.saveStation(file,stationService,departmentService);
         return Result.ok();
     }
+
+
+
+
 
 }
 
