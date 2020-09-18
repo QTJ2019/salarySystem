@@ -2,6 +2,7 @@ package com.scau.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.scau.entity.Employee;
+import com.scau.entity.vo.EmployeeVO;
 
 
 /**
@@ -14,4 +15,7 @@ import com.scau.entity.Employee;
  */
 public interface EmployeeService extends IService<Employee> {
 
+    boolean saveEmployee(EmployeeVO employeeVo);
+
+    void updateEmployee(EmployeeVO employeeVo);
 }
