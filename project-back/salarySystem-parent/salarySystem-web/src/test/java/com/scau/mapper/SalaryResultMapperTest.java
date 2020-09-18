@@ -1,5 +1,6 @@
 package com.scau.mapper;
 
+import com.scau.entity.DeptStatistic;
 import com.scau.entity.SalaryResult;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,6 +36,13 @@ public class SalaryResultTest {
         Date startMonth = temp.parse("2020-07-01");
         Date endMonth = temp.parse("2020-09-01");
         List<SalaryResult> list = salaryResultMapper.querySalaryForm(null,startMonth,endMonth,null);
+        Assert.assertEquals(1,list.size());
+    }
+
+    @Test
+    public void queryDeptStatisticTest(){
+
+        List<DeptStatistic> list = salaryResultMapper.queryDeptStatistic(null,null,null);
         Assert.assertEquals(1,list.size());
     }
 }
