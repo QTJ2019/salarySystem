@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scau.mapper.FixedItemMapper">
+    <select id="selectAll" resultType="com.scau.entity.FixedItem">
+        select
+        fi.id,
+        e.departmentId,
+        e.departmentName,
+        e.stationId,
+        e.stationName,
+        fi.employee_id,
+        e.name as 'employee_name',
+        fi.item_id,
+        i.name as 'item_name',
+        fi.value,
+        fi.date
+         from
+         item as i,employee as e,fixed_item as fi
+         where
+         i.id = fi.item_id
+         and e.id=fi.employee_id;
+    </select>
+    <select id="selectByEmployeeId" parameterType="Integer" resultType="com.scau.entity.FixedItem">
+        select
+        fi.id,
+        e.departmentId,
+        e.departmentName,
+        e.stationId,
+        e.stationName,
+        fi.employee_id,
+        e.name as 'employee_name',
+        fi.item_id,
+        i.name as 'item_name',
+        fi.value,
+        fi.date
+         from
+         item as i,employee as e,fixed_item as fi
+         where
+         i.id = fi.item_id
+         and e.id=fi.employee_id
+         and fi.employee_id =#{employeeId}
+    </select>
+<!--    <select id="selectBy" resultType="com.scau.entity.FixedItem">-->
+<!--        select-->
+<!--        fi.id,-->
+<!--        e.departmentId,-->
+<!--        e.departmentName,-->
+<!--        e.stationId,-->
+<!--        e.stationName,-->
+<!--        fi.employee_id,-->
+<!--        e.name as 'employee_name',-->
+<!--        fi.item_id,-->
+<!--        i.name as 'item_name',-->
+<!--        fi.value,-->
+<!--        fi.date-->
+<!--         from-->
+<!--         item as i,employee as e,fixed_item as fi-->
+<!--         where-->
+<!--         i.id = fi.item_id-->
+<!--         and e.id=fi.employee_id-->
+<!--        <if test="employeeId!=null and employeeId>0">-->
+<!--            and fi.employee_id = #{employeeId}-->
+<!--        </if>-->
+<!--        <if test="departmentId!=null and departmentId>0">-->
+<!--            and e.departmentId=#{departmentId}-->
+<!--        </if>-->
+<!--        <if test="stationId!=null and  stationId>0">-->
+<!--            and e.stationId = #{stationId}-->
+<!--        </if>-->
+<!--        <if test="itemId!=null and  itemId>0">-->
+<!--            and fi.item_id = #{itemId}-->
+<!--        </if>-->
+<!--    </select>-->
+    <select id="selectByCondition" resultType="com.scau.entity.FixedItem">
+        select
+        fi.id,
+        e.departmentId,
+        e.departmentName,
+        e.stationId,
+        e.stationName,
+        fi.employee_id,
+        e.name as 'employee_name',
+        fi.item_id,
+        i.name as 'item_name',
+        fi.value,
+        fi.date
+        from
+        item as i,employee as e,fixed_item as fi
+        where
+        i.id = fi.item_id
+        and e.id=fi.employee_id
+        <if test="params.employeeId!=null and params.employeeId>0">
+            and fi.employee_id = #{params.employeeId}
+        </if>
+        <if test="params.employeeName!=null and params.employeeName>0">
+            and employee_name = #{params.employeeName}
+        </if>
+        <if test="params.departmentName!=null and params.departmentName!='' ">
+            and e.departmentName = #{params.departmentName}
+        </if>
+        <if test="params.itemName!=null and  params.itemName>0" >
+            and item_name = #{params.itemName}
+        </if>
+        <if test="params.minValue!=null and params.minValue>=0">
+            and fi.value >= #{params.minValue}
+        </if>
+        <if test="params.maxValue!=null and params.maxValue>=0">
+            and fi.value &lt;= #{params.maxValue}
+        </if>
+        <if test="params.startDate!=null ">
+            and fi.date >= #{params.startDate}
+        </if>
+        <if test="params.endDate!=null ">
+            and fi.date &lt;= #{params.endDate}
+        </if>
+
+    </select>
+</mapper>

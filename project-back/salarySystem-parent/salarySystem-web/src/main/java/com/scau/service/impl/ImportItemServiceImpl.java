@@ -9,6 +9,8 @@ import com.scau.service.ImportItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImportItemServiceImpl extends ServiceImpl<ImportItemMapper, ImportItem> implements ImportItemService {
 
@@ -20,5 +22,10 @@ public class ImportItemServiceImpl extends ServiceImpl<ImportItemMapper, ImportI
         IPage<ImportItem> myImportItemPage=new Page<>(currentPage,3);
         IPage<ImportItem> importItemIPage=  importItemMapper.selectPage(myImportItemPage,null);
         return importItemIPage;
+    }
+
+    @Override
+    public List<ImportItem> selectByCondition(ImportItem importItem) {
+        return this.baseMapper.selectByCondition(importItem);
     }
 }

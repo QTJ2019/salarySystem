@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scau.mapper.ImportItemMapper">
+    <select id="selectByCondition" resultType="com.scau.entity.ImportItem">
+        select
+        ii.id,
+        e.departmentId,
+        e.departmentName,
+        e.stationId,
+        e.stationName,
+        ii.employee_id,
+        e.name as 'employee_name',
+        ii.item_id,
+        i.name as 'item_name',
+        ii.value,
+        ii.date
+        from
+        item as i,employee as e,import_item as ii
+        where
+        i.id = ii.item_id
+        and e.id=ii.employee_id
+        <if test="params.employeeId!=null and params.employeeId>0">
+            and ii.employee_id = #{params.employeeId}
+        </if>
+        <if test="params.employeeName!=null and params.employeeName>0">
+            and employee_name = #{params.employeeName}
+        </if>
+        <if test="params.departmentName!=null and params.departmentName!='' ">
+            and e.departmentName = #{params.departmentName}
+        </if>
+        <if test="params.itemName!=null and  params.itemName>0" >
+            and item_name = #{params.itemName}
+        </if>
+        <if test="params.minValue!=null and params.minValue>=0">
+            and ii.value >= #{params.minValue}
+        </if>
+        <if test="params.maxValue!=null and params.maxValue>=0">
+            and ii.value &lt;= #{params.maxValue}
+        </if>
+        <if test="params.startDate!=null ">
+            and ii.date >= #{params.startDate}
+        </if>
+        <if test="params.endDate!=null ">
+            and ii.date &lt;= #{params.endDate}
+        </if>
+
+    </select>
+</mapper>

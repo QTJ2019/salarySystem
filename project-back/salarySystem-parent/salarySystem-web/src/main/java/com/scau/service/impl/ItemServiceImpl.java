@@ -9,6 +9,8 @@ import com.scau.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements ItemService {
 
@@ -17,8 +19,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements It
 
     @Override
     public IPage<Item> selectItemByPage(Integer currentPage) {
-        IPage<Item> myItemPage=new Page<>(currentPage,3);
+        IPage<Item> myItemPage=new Page<>(currentPage,10);
         IPage<Item> itemIPage=  itemMapper.selectPage(myItemPage,null);
         return itemIPage;
+    }
+
+    @Override
+    public List<Item> selectByCondition(Item item) {
+        return this.baseMapper.selectByCondition(item);
     }
 }

@@ -12,13 +12,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-
 @Data
 
-@TableName("import_item")
-public class ImportItem implements Serializable {
+@TableName("actual_salary_item")
+public class ActualSalaryItem implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
+
+    private Integer state;
 
     @TableField(exist = false)
     private Integer departmentId;

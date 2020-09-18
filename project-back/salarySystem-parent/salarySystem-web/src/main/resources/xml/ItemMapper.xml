@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scau.mapper.ItemMapper">
+    <select id="selectByCondition" resultType="com.scau.entity.Item">
+        select
+        id,
+        `name`,
+        `type`,
+        effective,
+        description
+        from
+        item as i
+        where
+        1=1
+        <if test="params.id!=null and params.id>0">
+            and i.id = #{params.id}
+        </if>
+        <if test="params.name!=null">
+            and i.name = #{params.name}
+        </if>
+        <if test="params.type!=null">
+            and i.type = #{params.type}
+        </if>
+        <if test="params.effective!=null">
+            and i.effective = #{params.effective}
+        </if>
+        <if test="params.description!=null ">
+            and i.description = #{params.description}
+        </if>
+
+    </select>
+</mapper>

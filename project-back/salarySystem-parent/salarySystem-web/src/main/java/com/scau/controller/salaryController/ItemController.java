@@ -1,16 +1,17 @@
 package com.scau.controller.salaryController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.scau.Result.Result;
+import com.scau.entity.ImportItem;
 import com.scau.entity.Item;
 import com.scau.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/item")
+@RequestMapping("/api/salary/item")
 public class ItemController {
 
     @Autowired
@@ -23,4 +24,25 @@ public class ItemController {
         System.out.print("这是获取页面的数据"+ItemIPage.getRecords().get(0));
         return ItemIPage;
     }
+
+    @PostMapping(value = "/selectByCondition")
+    public Result selectByCondition(@RequestBody Item item){
+        Result result =null;
+        List<Item> items = itemService.selectByCondition(item);
+
+        if(items.size()==0){
+//            System.out.println(item);
+            result=Result.ok();
+            result= result.data("The search result is empty!",null);
+            System.out.println(item);
+        }else{
+            result =Result.ok();
+            result=result.data("data",items);
+            System.out.println(item);
+            System.out.println(items);
+        }
+        return result;
+
+    }
+
 }

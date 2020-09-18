@@ -3,11 +3,18 @@ package com.scau.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jayway.jsonpath.spi.json.TapestryJsonProvider;
 import com.scau.entity.FixedItem;
+import com.scau.entity.FixedItemVO;
+import com.scau.entity.Limitation;
 import com.scau.mapper.FixedItemMapper;
 import com.scau.service.FixedItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class FixedItemServiceImpl extends ServiceImpl<FixedItemMapper, FixedItem> implements FixedItemService {
@@ -21,4 +28,33 @@ public class FixedItemServiceImpl extends ServiceImpl<FixedItemMapper, FixedItem
         IPage<FixedItem> fixedItemIPage=  fixedItemMapper.selectPage(myFixedItemPage,null);
         return fixedItemIPage;
     }
+
+    @Override
+    public List<FixedItem> selectAll() {
+        return this.baseMapper.selectAll();
+    }
+
+    @Override
+    public List<FixedItem> selectByEmployeeId(Integer id) {
+        return this.baseMapper.selectByEmployeeId(id);
+    }
+
+    @Override
+    public List<FixedItem> selectByCondition(FixedItem fixedItem) {
+        return this.baseMapper.selectByCondition(fixedItem);
+    }
+
+//    @Override
+//    public List<FixedItem> selectBy(FixedItem fixedItem, Limitation limitation) {
+//        return this.baseMapper.selectBy(fixedItem,limitation);
+//    }
+
+//    @Override
+//    public List<FixedItem> selectBy(Integer employeeId, String employeeName, String departmentName, String stationName, String itemName, Date startDate, Date endDate) {
+//        return this.baseMapper.selectBy(employeeId,employeeName,departmentName,stationName,itemName,startDate,endDate);
+//    }
+
+
+
+
 }

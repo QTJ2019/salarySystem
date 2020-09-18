@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scau.mapper.ActualSalaryItemMapper">
+    <select id="selectByCondition" resultType="com.scau.entity.ActualSalaryItem">
+        select
+        asi.id,
+        asi.state,
+        e.departmentId,
+        e.departmentName,
+        e.stationId,
+        e.stationName,
+        asi.employee_id,
+        e.name as 'employee_name',
+        asi.item_id,
+        i.name as 'item_name',
+        asi.value,
+        asi.date
+        from
+        item as i,employee as e,actual_salary_item as asi
+        where
+        i.id = asi.item_id
+        and e.id=asi.employee_id
+        <if test="params.state!=null and params.state>=0">
+            and asi.state = #{params.state}
+        </if>
+        <if test="params.employeeId!=null and params.employeeId>0">
+            and asi.employee_id = #{params.employeeId}
+        </if>
+        <if test="params.employeeName!=null and params.employeeName>0">
+            and employee_name = #{params.employeeName}
+        </if>
+        <if test="params.departmentName!=null and params.departmentName!='' ">
+            and e.departmentName = #{params.departmentName}
+        </if>
+        <if test="params.itemName!=null and  params.itemName>0" >
+            and item_name = #{params.itemName}
+        </if>
+        <if test="params.minValue!=null and params.minValue>=0">
+            and asi.value >= #{params.minValue}
+        </if>
+        <if test="params.maxValue!=null and params.maxValue>=0">
+            and asi.value &lt;= #{params.maxValue}
+        </if>
+        <if test="params.startDate!=null ">
+            and asi.date >= #{params.startDate}
+        </if>
+        <if test="params.endDate!=null ">
+            and asi.date &lt;= #{params.endDate}
+        </if>
+
+    </select>
+</mapper>

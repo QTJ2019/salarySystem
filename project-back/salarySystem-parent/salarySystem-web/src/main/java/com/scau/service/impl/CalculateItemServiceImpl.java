@@ -9,6 +9,8 @@ import com.scau.service.CalculateItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CalculateItemServiceImpl extends ServiceImpl<CalculateItemMapper, CalculateItem> implements CalculateItemService {
 
@@ -20,5 +22,10 @@ public class CalculateItemServiceImpl extends ServiceImpl<CalculateItemMapper, C
         IPage<CalculateItem> myCalculateItemPage=new Page<>(currentPage,3);
         IPage<CalculateItem> calculateItemIPage=  calculateItemMapper.selectPage(myCalculateItemPage,null);
         return calculateItemIPage;
+    }
+
+    @Override
+    public List<CalculateItem> selectByCondition(CalculateItem calculateItem) {
+        return this.baseMapper.selectByCondition(calculateItem);
     }
 }
