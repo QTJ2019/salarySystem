@@ -16,7 +16,7 @@ import java.util.Date;
  * </p>
  *
  * @author wyn
- * @since 2020-09-16
+ * @since 2020-09-18
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,8 +31,6 @@ public class Employee implements Serializable {
     private String name;
 
     private Integer sex;
-
-    private Date birth;
 
     @TableField("departmentId")
     private Integer departmentId;
@@ -49,50 +47,25 @@ public class Employee implements Serializable {
     @TableField("employDate")
     private Date employDate;
 
-    @TableField("workDate")
-    private Date workDate;
-
-    private Integer form;
-
-    private Integer tag;
-
     private String idcard;
 
-    private String politics;
-
-    private String source;
-
     private String folk;
-
-    private String nation;
 
     private String phone;
 
     private String email;
 
-    private String height;
-
-    private String blood;
-
     private String status;
-
-    private String homeplace;
 
     private String seat;
 
     @TableField("eduBack")
     private String eduBack;
 
-    @TableField("eduDegree")
-    private String eduDegree;
-
     @TableField("graSchool")
     private String graSchool;
 
     private String speciality;
-
-    @TableField("graDate")
-    private Date graDate;
 
 
 }

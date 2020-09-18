@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author wyn
- * @since 2020-09-16
+ * @since 2020-09-18
  */
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/payroll/employee")
 public class EmployeeController {
 
 }

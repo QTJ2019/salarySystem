@@ -10,7 +10,7 @@ import com.scau.entity.Employee;
  * </p>
  *
  * @author wyn
- * @since 2020-09-16
+ * @since 2020-09-18
  */
 public interface EmployeeService extends IService<Employee> {
 
