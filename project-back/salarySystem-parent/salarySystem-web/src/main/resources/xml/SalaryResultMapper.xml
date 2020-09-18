@@ -6,7 +6,6 @@
     <resultMap id="deptStatisticMap" type="com.scau.entity.DeptStatistic">
         <id property="deptId" column="id"/>
         <result property="deptName" column="deptName"/>
-        <result property="date" column="date"/>
         <result property="sumBasicSalary" column="sumSalary"/>
         <result property="avgBasicSalary" column="avgSalary"/>
         <result property="minBasicSalary" column="minSalary"/>
@@ -32,7 +31,6 @@
 	SELECT
 	  a.departmentId as id,
 	  a.departmentName as deptName,
-	  DATE_FORMAT(b.date,'%Y-%m') as date,
 	  SUM( b.VALUE ) AS sumSalary,
 	  AVG( b.VALUE ) AS avgSalary,
 	  MIN( b.VALUE ) AS minSalary,
@@ -51,8 +49,7 @@
     </where>
     GROUP BY
 	a.departmentId,
-	a.departmentName,
-	date
+	a.departmentName
    ORDER BY a.departmentId;
 
 	</select>

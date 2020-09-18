@@ -18,9 +18,6 @@ public class DeptStatistic {
     //部门名称
     private String deptName;
 
-    //时间
-    private String  date;
-
     //总基本工资
     private Double sumBasicSalary;
 
