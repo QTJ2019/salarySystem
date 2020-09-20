@@ -1,11 +1,16 @@
 package com.scau.controller.salaryController;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.scau.Result.*;
+import com.scau.entity.Employee;
 import com.scau.entity.FixedItem;
 
+import com.scau.entity.Item;
 import com.scau.entity.Limitation;
+import com.scau.service.EmployeeService;
 import com.scau.service.FixedItemService;
+import com.scau.service.ItemService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +29,11 @@ public class FixedItemController {
     @Autowired
     private FixedItemService fixedItemService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping(value = "/findFixedItemByPage/{currentPage}")
     public Result findFixedItemByPage(@PathVariable(value = "currentPage") Integer currentPage)
@@ -38,6 +48,7 @@ public class FixedItemController {
     @GetMapping(value = "/selectAllFIxedItem")
     public Result selectAll(){
         Result result = Result.ok();
+
         result = result.data("data",fixedItemService.selectAll());
         return result;
     }
@@ -108,4 +119,70 @@ public class FixedItemController {
         return result;
 
     }
+
+    @PostMapping(value = "/addRecord")
+    public Result addRecord(@RequestBody FixedItem fixedItem){
+        Result result = null;
+        if(fixedItem==null){
+            result =result.error();
+            result =result.message("null object!");
+        }else if(fixedItem.getEmployeeId()==null){
+            result =result.error();
+            result =result.message("null employeeId!");
+        }else if(fixedItem.getEmployeeId()<=0){
+            result =result.error();
+            result =result.message("illegal employeeId!");
+        }else if(!employeeIsExist(fixedItem.getEmployeeId())){
+            result =result.error();
+            result =result.message("the employeeId Not Exist!");
+        }else if(fixedItem.getItemId()==null){
+            result =result.error();
+            result =result.message("null itemId!");
+        }else if(fixedItem.getItemId()<=0){
+            result =result.error();
+            result =result.message("illegal itemId!");
+        }else if(!itemIsExist(fixedItem.getItemId())){
+            result =result.error();
+            result =result.message("the itemId Not Exist!");
+        }else if(fixedItem.getDate()==null){
+            result =result.error();
+            result =result.message("null date!");
+        }else{
+            boolean isSaved = fixedItemService.save(fixedItem);
+            if(isSaved){
+                result=result.ok();
+            }else{
+                result=result.error();
+                result =result.message("insert ERROR!");
+            }
+        }
+        return result;
+    }
+
+    public boolean employeeIsExist(Integer employeeId){
+        boolean isExist=false;
+        QueryWrapper<Employee> wrapper=new QueryWrapper<>();
+        wrapper.eq("id",employeeId);
+        Employee employee=employeeService.getOne(wrapper);
+        if(employee==null){
+            isExist=false;
+        }else{
+            isExist=true;
+        }
+        return isExist;
+    }
+
+    public boolean itemIsExist(Integer itemId){
+        boolean isExist=false;
+        QueryWrapper<Item> wrapper=new QueryWrapper<>();
+        wrapper.eq("id",itemId);
+        Item item= itemService.getOne(wrapper);
+        if(item==null){
+            isExist=false;
+        }else{
+            isExist=true;
+        }
+        return isExist;
+    }
+
 }
