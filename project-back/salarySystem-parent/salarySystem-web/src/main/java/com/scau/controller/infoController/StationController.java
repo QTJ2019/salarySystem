@@ -90,6 +90,20 @@ public class StationController {
     }
 
     /**
+     * 根绝id获取岗位信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getStationById/{id}")
+    public Result getStationById(@PathVariable("id") Integer id){
+        Station station = stationService.getById(id);
+        if(station!=null){
+            return Result.ok().data("station",station);
+        }
+        return null;
+    }
+
+    /**
      * 修改工种信息
      * @param station
      * @return
