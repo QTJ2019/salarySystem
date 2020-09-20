@@ -19,6 +19,8 @@ public class CalculateItem implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    private Integer state;
+
     @TableField(exist = false)
     private Integer departmentId;
 
@@ -41,7 +43,7 @@ public class CalculateItem implements Serializable {
     @TableField(exist = false)
     private String itemName;
 
-    private Integer value;
+    private Double value;
 
     @JsonFormat(pattern = "yyyy-MM",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM")

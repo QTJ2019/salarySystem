@@ -43,7 +43,7 @@ public class ActualSalaryItem implements Serializable {
     @TableField(exist = false)
     private String itemName;
 
-    private Integer value;
+    private Double value;
 
     @JsonFormat(pattern = "yyyy-MM",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM")

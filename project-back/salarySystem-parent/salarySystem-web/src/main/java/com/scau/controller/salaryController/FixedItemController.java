@@ -2,26 +2,17 @@ package com.scau.controller.salaryController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.scau.Result.*;
+import com.scau.Result.Result;
 import com.scau.entity.Employee;
 import com.scau.entity.FixedItem;
-
 import com.scau.entity.Item;
-import com.scau.entity.Limitation;
 import com.scau.service.EmployeeService;
 import com.scau.service.FixedItemService;
 import com.scau.service.ItemService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.sql.ResultSetMetaData;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/salary/fixedItem")
@@ -64,9 +55,9 @@ public class FixedItemController {
         Result result ;
         List<FixedItem> list = fixedItemService.selectByEmployeeId(id);
         if(list.size()==0){
-            result=Result.error();
+            result= Result.error();
         }else{
-            result =Result.ok();
+            result = Result.ok();
             result =result.data("data",list);
         }
         return  result;
@@ -104,22 +95,33 @@ public class FixedItemController {
 //        limitation.setMaxValue(maxValue);
 //        limitation.setStartDate(startDate);
 //        limitation.setEndDate(endDate);
+
+    /**
+     * 不定条件查询
+     * @param fixedItem
+     * @return
+     */
     @PostMapping(value = "/selectByCondition")
     public Result selectByCondition(@RequestBody FixedItem fixedItem){
-        Result result =null;
+        Result result;
         List<FixedItem> fixedItems = fixedItemService.selectByCondition(fixedItem);
         if(fixedItems.size()==0){
 //            System.out.println(fixedItem);
-            result=Result.ok();
+            result= Result.ok();
             result= result.data("The search result is empty!",null);
         }else{
-            result =Result.ok();
+            result = Result.ok();
             result=result.data("data",fixedItems);
         }
         return result;
 
     }
 
+    /**
+     * 通过员工id，项目id，具体值(非必须)，日期插入一条固定项目记录
+     * @param fixedItem
+     * @return
+     */
     @PostMapping(value = "/addRecord")
     public Result addRecord(@RequestBody FixedItem fixedItem){
         Result result = null;
@@ -150,7 +152,7 @@ public class FixedItemController {
         }else{
             boolean isSaved = fixedItemService.save(fixedItem);
             if(isSaved){
-                result=result.ok();
+                result= Result.ok();
             }else{
                 result=result.error();
                 result =result.message("insert ERROR!");
@@ -159,6 +161,37 @@ public class FixedItemController {
         return result;
     }
 
+    @PostMapping("/changeRecord")
+    public Result changeRecord(@RequestBody FixedItem fixedItem){
+        Result result;
+        boolean isChanged = fixedItemService.updateById(fixedItem);
+        if(isChanged){
+            result = Result.ok();
+        }else{
+            result = Result.error();
+        }
+        return result;
+    }
+
+    @PostMapping("/deleteRecord")
+    public Result deleteRecord(@RequestBody FixedItem fixedItem){
+        Result result;
+        boolean isDeleted =fixedItemService.removeById(fixedItem.getId());
+        if(isDeleted){
+            result = Result.ok();
+        }else {
+            result= Result.error();
+        }
+        return result;
+    }
+
+//    public Result
+
+    /**
+     * employee存在性
+     * @param employeeId
+     * @return
+     */
     public boolean employeeIsExist(Integer employeeId){
         boolean isExist=false;
         QueryWrapper<Employee> wrapper=new QueryWrapper<>();
@@ -172,6 +205,11 @@ public class FixedItemController {
         return isExist;
     }
 
+    /**
+     * Item存在性
+     * @param itemId
+     * @return
+     */
     public boolean itemIsExist(Integer itemId){
         boolean isExist=false;
         QueryWrapper<Item> wrapper=new QueryWrapper<>();

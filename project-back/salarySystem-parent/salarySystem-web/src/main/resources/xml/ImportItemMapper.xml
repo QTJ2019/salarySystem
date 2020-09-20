@@ -13,8 +13,10 @@
         e.name as 'employee_name',
         ii.item_id,
         i.name as 'item_name',
+        i.effective as 'effective',
         ii.value,
-        ii.date
+        ii.date,
+        ii.state
         from
         item as i,employee as e,import_item as ii
         where
@@ -43,6 +45,9 @@
         </if>
         <if test="params.endDate!=null ">
             and ii.date &lt;= #{params.endDate}
+        </if>
+        <if test="params.state!=null ">
+            and ii.state = #{params.state}
         </if>
 
     </select>

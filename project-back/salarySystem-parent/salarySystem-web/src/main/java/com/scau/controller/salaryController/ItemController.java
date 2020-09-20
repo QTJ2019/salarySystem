@@ -2,7 +2,6 @@ package com.scau.controller.salaryController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.scau.Result.Result;
-import com.scau.entity.ImportItem;
 import com.scau.entity.Item;
 import com.scau.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,17 @@ public class ItemController {
 
     @PostMapping(value = "/selectByCondition")
     public Result selectByCondition(@RequestBody Item item){
-        Result result =null;
+        Result result;
         List<Item> items = itemService.selectByCondition(item);
 
         if(items.size()==0){
 //            System.out.println(item);
-            result=Result.ok();
+            result= Result.ok();
             result= result.data("The search result is empty!",null);
             System.out.println(item);
         }else{
-            result =Result.ok();
+            result = Result.ok();
             result=result.data("data",items);
-            System.out.println(item);
-            System.out.println(items);
         }
         return result;
 

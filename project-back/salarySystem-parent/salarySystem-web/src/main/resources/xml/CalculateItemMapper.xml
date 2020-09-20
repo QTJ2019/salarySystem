@@ -13,8 +13,10 @@
         e.name as 'employee_name',
         ci.item_id,
         i.name as 'item_name',
+        i.effective as 'effective',
         ci.value,
-        ci.date
+        ci.date,
+        ci.state
         from
         item as i,employee as e,calculate_item as ci
         where
@@ -29,7 +31,10 @@
         <if test="params.departmentName!=null and params.departmentName!='' ">
             and e.departmentName = #{params.departmentName}
         </if>
-        <if test="params.itemName!=null and  params.itemName>0" >
+        <if test="params.itemId!=null and params.itemId>0">
+            and ci.item_id = #{params.itemId}
+        </if>
+        <if test="params.itemName!=null" >
             and item_name = #{params.itemName}
         </if>
         <if test="params.minValue!=null and params.minValue>=0">
@@ -43,6 +48,9 @@
         </if>
         <if test="params.endDate!=null ">
             and ci.date &lt;= #{params.endDate}
+        </if>
+        <if test="params.state!=null ">
+            and ci.state = #{params.state}
         </if>
 
     </select>

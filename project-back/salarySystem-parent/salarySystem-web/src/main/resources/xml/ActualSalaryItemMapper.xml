@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.scau.mapper.ActualSalaryItemMapper">
-    <select id="selectByCondition" resultType="com.scau.entity.ActualSalaryItem">
+<mapper namespace="com.scau.mapper.CalculateItemMapper">
+    <select id="selectByCondition" resultType="com.scau.entity.CalculateItem">
         select
-        asi.id,
-        asi.state,
+        ci.id,
         e.departmentId,
         e.departmentName,
         e.stationId,
         e.stationName,
-        asi.employee_id,
+        ci.employee_id,
         e.name as 'employee_name',
-        asi.item_id,
+        ci.item_id,
         i.name as 'item_name',
-        asi.value,
-        asi.date
+        i.effective as 'effective',
+        ci.value,
+        ci.date,
+        ci.state
         from
-        item as i,employee as e,actual_salary_item as asi
+        item as i,employee as e,calculate_item as ci
         where
-        i.id = asi.item_id
-        and e.id=asi.employee_id
-        <if test="params.state!=null and params.state>=0">
-            and asi.state = #{params.state}
-        </if>
+        i.id = ci.item_id
+        and e.id=ci.employee_id
         <if test="params.employeeId!=null and params.employeeId>0">
-            and asi.employee_id = #{params.employeeId}
+            and ci.employee_id = #{params.employeeId}
         </if>
         <if test="params.employeeName!=null and params.employeeName>0">
             and employee_name = #{params.employeeName}
@@ -33,20 +31,26 @@
         <if test="params.departmentName!=null and params.departmentName!='' ">
             and e.departmentName = #{params.departmentName}
         </if>
-        <if test="params.itemName!=null and  params.itemName>0" >
+        <if test="params.itemId!=null and params.itemId>0">
+            and ci.item_id = #{params.itemId}
+        </if>
+        <if test="params.itemName!=null" >
             and item_name = #{params.itemName}
         </if>
         <if test="params.minValue!=null and params.minValue>=0">
-            and asi.value >= #{params.minValue}
+            and ci.value >= #{params.minValue}
         </if>
         <if test="params.maxValue!=null and params.maxValue>=0">
-            and asi.value &lt;= #{params.maxValue}
+            and ci.value &lt;= #{params.maxValue}
         </if>
         <if test="params.startDate!=null ">
-            and asi.date >= #{params.startDate}
+            and ci.date >= #{params.startDate}
         </if>
         <if test="params.endDate!=null ">
-            and asi.date &lt;= #{params.endDate}
+            and ci.date &lt;= #{params.endDate}
+        </if>
+        <if test="params.state!=null ">
+            and ci.state = #{params.state}
         </if>
 
     </select>

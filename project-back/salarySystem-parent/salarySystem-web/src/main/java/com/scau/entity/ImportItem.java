@@ -20,6 +20,8 @@ public class ImportItem implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    private Integer state;
+
     @TableField(exist = false)
     private Integer departmentId;
 
