@@ -13,6 +13,7 @@ import com.scau.mapper.EmployeeMapper;
 import com.scau.service.DepartmentService;
 import com.scau.service.EmployeeService;
 import com.scau.service.StationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import java.util.Date;
  * @author wyn
  * @since 2020-09-18
  */
+@Slf4j
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
 
@@ -62,7 +64,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         BeanUtils.copyProperties(employeeVo,employee);
         boolean flag = this.updateById(employee);
         if(!flag){
-            System.out.println("更新员工信息失败");
+            log.error("更新员工信息失败");
         }
     }
 

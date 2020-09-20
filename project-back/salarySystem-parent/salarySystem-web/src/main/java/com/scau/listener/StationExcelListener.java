@@ -8,7 +8,10 @@ import com.scau.entity.Station;
 import com.scau.entity.excel.StationExcel;
 import com.scau.service.DepartmentService;
 import com.scau.service.StationService;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 public class StationExcelListener extends AnalysisEventListener<StationExcel>{
 
     private StationService stationService;
@@ -27,11 +30,11 @@ public class StationExcelListener extends AnalysisEventListener<StationExcel>{
     @Override
     public void invoke(StationExcel stationExcel, AnalysisContext analysisContext) {
         if(stationExcel==null) {
-            System.out.println("文件数据为空");
+            log.error("文件数据为空");
         }
         Department department=this.departmentIsExist(departmentService,stationExcel.getDeptName());
         if(department==null){
-            System.out.println("该部门不存在");
+            log.error("该部门不存在");
         }else{
             Station station=this.isExist(stationService,stationExcel.getName());
             if(station==null){
