@@ -68,7 +68,7 @@ public class SalaryResult {
 
     //病假扣款
     @ExcelProperty("病假扣款")
-    private  Integer sickLeaveFine;
+    private  Double sickLeaveFine;
 
     //事假次数
     @ExcelProperty("事假次数")
