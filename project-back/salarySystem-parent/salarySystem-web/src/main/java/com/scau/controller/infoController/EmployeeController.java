@@ -95,7 +95,7 @@ public class EmployeeController {
         }
         Employee employee = employeeService.getOne(wrapper);
         if(employee==null){
-            log.error("该员工不存在");
+            log.error("该员工不存在 ");
         }
         return Result.ok().data("employee",employee);
     }
