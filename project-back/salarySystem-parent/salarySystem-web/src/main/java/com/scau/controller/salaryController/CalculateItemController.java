@@ -188,18 +188,32 @@ public class CalculateItemController {
         }else {
             //获取基本工资
             basciSlary =fixedItems.get(0);
+            //用于存放需要操作的计算项目
             List<CalculateItem> calculateItems=new ArrayList<CalculateItem>();
+            //计算导入项目
             calculateImportItem(calculateItems,calculateItem.getEmployeeId(),calculateItem.getDate());
+
+            //计算项目列表引用传给了导入项目计算方法中，后面可以计算接下来计算了多少五险一金记录
             int calculateImportItemNum=calculateItems.size();
+
+            //成功计算，返回计算了多少条纪录
             Result calculateImpotItemResult= Result.ok();
             calculateImpotItemResult=calculateImpotItemResult.message(calculateImportItemNum+" importItem(s) to calculate.");
+            //将计算导入项目返回结果加入到返回结果集
             resultSet.add(calculateImpotItemResult);
+
+            //计算五险一金
             calculateInsuranceAndHousingFund(calculateItems,calculateItem.getEmployeeId(),basciSlary.getValue(),calculateItem.getDate());
+            //去掉返回的null值
             calculateItems.removeAll(Collections.singleton(null));
+            //成功计算，计算得出计算了多少条五险一金记录
             int calculateInsuranceAndHousingFundNum=calculateItems.size()-calculateImportItemNum;
+            //成功计算，返回计算了多少条纪录
             Result calculateInsuranceAndHousingFundResult = Result.ok();
             calculateInsuranceAndHousingFundResult=calculateInsuranceAndHousingFundResult.message(calculateInsuranceAndHousingFundNum+" InsuranceAndHousingFund to calculate.");
+            //将计算五险一金结果加入返回结果街
             resultSet.add(calculateInsuranceAndHousingFundResult);
+            //遍历所有计算好的计算项目，调用新增记录方法，把调用返回结果加入返回结果集
             for(CalculateItem each :calculateItems){
                 if(each!=null){
                     resultSet.add(addRecord(each));
@@ -207,7 +221,9 @@ public class CalculateItemController {
                 }
             }
             System.out.println(calculateItems.size());
+            //标记被计算了的导入项目为已计算，即state设置为1
             markCalculatedImportItem(calculateItem.getEmployeeId(),calculateItem.getDate());
+            //将返回结果集添加到返回结果的数据属性的"results"key的value中
             result= Result.ok();
             result=result.data("results",resultSet);
         }

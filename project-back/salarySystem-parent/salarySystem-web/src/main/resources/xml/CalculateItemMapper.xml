@@ -25,7 +25,7 @@
         <if test="params.employeeId!=null and params.employeeId>0">
             and ci.employee_id = #{params.employeeId}
         </if>
-        <if test="params.employeeName!=null and params.employeeName>0">
+        <if test="params.employeeName!=null">
             and employee_name = #{params.employeeName}
         </if>
         <if test="params.departmentName!=null and params.departmentName!='' ">
