@@ -45,6 +45,9 @@ public class CalculateItem implements Serializable {
 
     private Double value;
 
+    @TableField(exist = false)
+    private Integer effective;
+
     @JsonFormat(pattern = "yyyy-MM",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM")
     private Date date;

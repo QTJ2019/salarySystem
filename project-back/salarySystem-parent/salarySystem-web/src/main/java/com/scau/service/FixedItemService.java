@@ -3,13 +3,8 @@ package com.scau.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.scau.entity.FixedItem;
-import com.scau.entity.FixedItemVO;
-import com.scau.entity.Limitation;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 public interface FixedItemService extends IService<FixedItem> {

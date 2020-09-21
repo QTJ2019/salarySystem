@@ -1,7 +1,6 @@
 package com.scau.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.scau.entity.ImportItem;
 import com.scau.entity.Item;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
