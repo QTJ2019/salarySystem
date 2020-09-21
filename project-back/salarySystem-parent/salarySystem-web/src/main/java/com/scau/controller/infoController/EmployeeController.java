@@ -6,6 +6,7 @@ import com.scau.entity.Department;
 import com.scau.entity.Employee;
 import com.scau.entity.vo.EmployeeVO;
 import com.scau.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/employee")
+@Slf4j
 public class EmployeeController {
 
     @Autowired
@@ -67,6 +69,21 @@ public class EmployeeController {
         return Result.ok().data("list",list);
     }
 
+    /**
+     * 根据员工id获取员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getEmployeeById/{id}")
+    public Result getEmployeeById(@PathVariable("id") Integer id){
+        Employee employee=employeeService.getById(id);
+        if(employee==null){
+            log.error("该员工不存在");
+            return Result.error();
+        }else{
+            return Result.ok().data("employee",employee);
+        }
+    }
 
     /**
      * 更新员工信息,更新员工住址信息

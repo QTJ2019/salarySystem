@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.scau.Result.Result;
 import com.scau.entity.Department;
 import com.scau.service.DepartmentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/department")
+@Slf4j
 public class DepartmentController {
 
     @Autowired
@@ -56,6 +58,22 @@ public class DepartmentController {
             return Result.ok();
         }else{
             return Result.error();
+        }
+    }
+
+    /**
+     * 根据部门id获取部门信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getDepartmentById/{id}")
+    public Result getDepartmentById(@PathVariable("id") Integer id){
+        Department department=departmentService.getById(id);
+        if(department==null){
+            log.info("该部门不存在");
+            return Result.error();
+        }else{
+            return Result.ok().data("department",department);
         }
     }
 
