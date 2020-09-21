@@ -49,7 +49,6 @@ public class reportController {
                 startDate = CalendarUtil.getFirstDateOfMonth(start);
                 endDate = CalendarUtil.getLastDateOfMonth(end);
             }
-
             List<SalaryResult> resultList = salaryResultService.querrySalaryForm(deptName,
                     startDate,
                     endDate,
@@ -84,17 +83,13 @@ public class reportController {
                 startDate = CalendarUtil.getFirstDateOfMonth(start);
                 endDate = CalendarUtil.getLastDateOfMonth(end);
             }
-            resultList = salaryResultService.querrySalaryForm(deptName,
-                                                             startDate,
-                                                             endDate,
-                                                             employeeId);
+            resultList = salaryResultService.querrySalaryForm(deptName, startDate, endDate, employeeId);
         }catch (ParseException e){
             return result.message("日期转换错误");
         }
         catch (Exception e){
             return result.message("数据库查询失败");
         }
-
         String fileName = null;
         try {
             fileName = URLEncoder.encode("工资报表","utf-8");
@@ -104,13 +99,12 @@ public class reportController {
         }
         response.setContentType("application/vnd.ms-excel");
         response.setContentType("utf-8");
-        response.setHeader("Content-disposition","attachment;filename="+fileName+".xlsx");
+        response.setHeader("Content-disposition","attachment;filename="+fileName+".xls");
         try {
             EasyExcel.write(response.getOutputStream(),SalaryResult.class).sheet("sheet1").doWrite(resultList);
         } catch (IOException e) {
             return result.message("输出流错误");
         }
-
         return Result.ok();
     }
 
