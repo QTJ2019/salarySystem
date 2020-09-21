@@ -2,12 +2,13 @@ package com.scau.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.util.Date;
 
@@ -131,7 +132,7 @@ public class SalaryResult {
 
     //工资所属时间
     @JsonFormat(pattern = "yyyy-MM",timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM")
+    @DateTimeFormat( "yyyy-MM")
     @ExcelProperty("时间")
     private Date date;
 
