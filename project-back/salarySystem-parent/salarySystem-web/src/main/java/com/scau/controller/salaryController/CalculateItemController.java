@@ -186,8 +186,8 @@ public class CalculateItemController {
             result= Result.error();
             result=result.message("lack of basicSalary!");
         }else {
+            //获取基本工资
             basciSlary =fixedItems.get(0);
-            System.out.println(basciSlary);
             List<CalculateItem> calculateItems=new ArrayList<CalculateItem>();
             calculateImportItem(calculateItems,calculateItem.getEmployeeId(),calculateItem.getDate());
             int calculateImportItemNum=calculateItems.size();
@@ -496,7 +496,7 @@ public class CalculateItemController {
      * @return
      */
     public CalculateItem calculateCompanyPaidPregnantIsurance(Integer employeeId, Double basicSalary, Date date){
-        if(isExistInsuranceAndHousingFund(employeeId,22,date)){
+        if(isFemale(employeeId) || isExistInsuranceAndHousingFund(employeeId,22,date)){
             return null;
         }else {
             CalculateItem calculateItem =new CalculateItem();
@@ -551,7 +551,13 @@ public class CalculateItemController {
 
     }
 
-
+    public boolean isFemale(Integer employeeId){
+        Employee employee=employeeService.getBaseMapper().selectById(employeeId);
+        if(employee.getSex()==0){
+            return true;
+        }
+        return false;
+    }
 
 
 

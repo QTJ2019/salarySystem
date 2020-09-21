@@ -1,18 +1,12 @@
 package com.scau.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.scau.entity.FixedItem;
-import com.scau.entity.FixedItemVO;
-import com.scau.entity.Limitation;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Component

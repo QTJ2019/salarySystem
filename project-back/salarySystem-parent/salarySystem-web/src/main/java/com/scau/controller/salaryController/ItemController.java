@@ -26,7 +26,7 @@ public class ItemController {
 
     @PostMapping(value = "/selectByCondition")
     public Result selectByCondition(@RequestBody Item item){
-        Result result;
+        Result result =null;
         List<Item> items = itemService.selectByCondition(item);
 
         if(items.size()==0){
@@ -37,6 +37,8 @@ public class ItemController {
         }else{
             result = Result.ok();
             result=result.data("data",items);
+            System.out.println(item);
+            System.out.println(items);
         }
         return result;
 

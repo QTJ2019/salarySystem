@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.scau.entity.CompanyStatistic;
 import com.scau.entity.DeptStatistic;
-import com.scau.entity.ImportItem;
 import com.scau.entity.SalaryResult;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: qtj

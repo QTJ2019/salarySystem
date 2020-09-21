@@ -49,7 +49,6 @@ public class reportController {
                 startDate = CalendarUtil.getFirstDateOfMonth(start);
                 endDate = CalendarUtil.getLastDateOfMonth(end);
             }
-
             List<SalaryResult> resultList = salaryResultService.querrySalaryForm(deptName,
                     startDate,
                     endDate,
@@ -70,48 +69,41 @@ public class reportController {
     }
 
     @RequestMapping("/exportsalaryform")
-    private Result exportSalaryForm(String deptName, String start, String end, Integer employeeId, HttpServletResponse response){
+    private void exportSalaryForm(String deptName, String start, String end, Integer employeeId, HttpServletResponse response){
         Result result = Result.error();
         List<SalaryResult> resultList = null;
         Date startDate=null;
         Date endDate=null;
         if (startDate==null && endDate!=null)
-            return Result.error().message("请选择开始时间");
+            System.out.println("请选择开始时间");
         if (startDate!=null && endDate == null)
-            return Result.error().message("请选择结束时间");
+            System.out.println("请选择结束时间");
         try {
             if (start!= null && end != null){
                 startDate = CalendarUtil.getFirstDateOfMonth(start);
                 endDate = CalendarUtil.getLastDateOfMonth(end);
             }
-            resultList = salaryResultService.querrySalaryForm(deptName,
-                                                             startDate,
-                                                             endDate,
-                                                             employeeId);
+            resultList = salaryResultService.querrySalaryForm(deptName, startDate, endDate, employeeId);
         }catch (ParseException e){
-            return result.message("日期转换错误");
+           System.out.println("日期转换错误");
         }
         catch (Exception e){
-            return result.message("数据库查询失败");
+           System.out.println("数据库查询失败");
         }
-
         String fileName = null;
         try {
             fileName = URLEncoder.encode("工资报表","utf-8");
         } catch (UnsupportedEncodingException e) {
-            result = Result.error();
-            return result.message("报表名称编码错误");
+            System.out.println("报表名称编码错误");
         }
         response.setContentType("application/vnd.ms-excel");
         response.setContentType("utf-8");
-        response.setHeader("Content-disposition","attachment;filename="+fileName+".xlsx");
+        response.setHeader("Content-disposition","attachment;filename="+fileName+".xls");
         try {
             EasyExcel.write(response.getOutputStream(),SalaryResult.class).sheet("sheet1").doWrite(resultList);
         } catch (IOException e) {
-            return result.message("输出流错误");
+           System.out.println("输出流错误");
         }
-
-        return Result.ok();
     }
 
     @RequestMapping("/getdeptstatistic")
