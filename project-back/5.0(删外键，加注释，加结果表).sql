@@ -73,6 +73,26 @@ INSERT INTO `calculate_item` VALUES (1,43,7,'请假次数*10',50,'2020-01-01');
 /*!40000 ALTER TABLE `calculate_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for account
+-- ----------------------------
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_index` (`account`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
 --
 -- Table structure for table `department`
 --
