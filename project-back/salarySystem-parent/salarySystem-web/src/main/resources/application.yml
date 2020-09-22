@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sal-management-system?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true& serverTimezone=Asia/Shanghai
     username: root
-    password: 201725010122scauwyn
+    password: 123456
   jackson:
     time-zone: Asia/Shanghai
 jwt:

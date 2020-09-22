@@ -8,8 +8,8 @@ import com.scau.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -107,6 +107,17 @@ public class ActualSalaryItemController {
     @PostMapping("/changeRecord")
     public Result changeRecord(@RequestBody ActualSalaryItem actualSalaryItem){
         Result result;
+        if(actualSalaryItem.getId()==null){
+            result =Result.error();
+            result =result.message("null id!");
+            return result;
+        }
+        ActualSalaryItem oldActualSalaryItem=actualSalaryItemService.getBaseMapper().selectById(actualSalaryItem.getId());
+        if(oldActualSalaryItem.getState()==2){
+            result =Result.error();
+            result =result.message("already paid salary,unable to change!");
+            return result;
+        }
         boolean isChanged = actualSalaryItemService.updateById(actualSalaryItem);
         if(isChanged){
             result = Result.ok();
@@ -119,6 +130,22 @@ public class ActualSalaryItemController {
     @PostMapping("/deleteRecord")
     public Result deleteRecord(@RequestBody ActualSalaryItem actualSalaryItem){
         Result result;
+        if(actualSalaryItem.getId()==null){
+            result =Result.error();
+            result =result.message("null id!");
+            return result;
+        }
+        ActualSalaryItem oldActualSalaryItem=actualSalaryItemService.getBaseMapper().selectById(actualSalaryItem.getId());
+        if(oldActualSalaryItem==null){
+            result =Result.error();
+            result =result.message("id not Exist!");
+            return result;
+        }
+        if(oldActualSalaryItem.getState()==2){
+            result =Result.error();
+            result =result.message("already paid salary,unable to change!");
+            return result;
+        }
         boolean isDeleted =actualSalaryItemService.removeById(actualSalaryItem.getId());
         if(isDeleted){
             result = Result.ok();
@@ -176,7 +203,7 @@ public class ActualSalaryItemController {
         Result result=null;
         if(!isAbleToSettleSalary(actualSalaryItem)){
             result = Result.error();
-            result =result.message("Unable to settleSlary!");
+            result =result.message("Unable to settleSalary!");
             return result;
         }
 
@@ -216,7 +243,7 @@ public class ActualSalaryItemController {
             return result;
         }
 
-        //TODO :add all salary
+        //add all salary
         Double finalSalary = Double.parseDouble(resultSet.get(0).getData().get("settleFixedItemSalary").toString())
                 +Double.parseDouble(resultSet.get(1).getData().get("settleCalculateItemSalary").toString())
                 +Double.parseDouble(resultSet.get(2).getData().get("settleTax").toString());
@@ -535,7 +562,7 @@ public class ActualSalaryItemController {
         }
 
         salaryResult.setEmployeeId(actualSalaryItem.getEmployeeId());
-        salaryResult.setDate(new Date(actualSalaryItem.getDate().getTime()));
+        salaryResult.setDate(actualSalaryItem.getDate());
         salaryResult.setActualSalary(actualSalaryItem.getValue());
 
         FixedItem fixedItemCondition =new FixedItem();
