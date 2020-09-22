@@ -36,7 +36,7 @@ public class FixedItemController {
         return result;
     }
 
-    @GetMapping(value = "/selectAllFIxedItem")
+    @GetMapping(value = "/selectAllFixedItem")
     public Result selectAll(){
         Result result = Result.ok();
 
