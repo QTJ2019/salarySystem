@@ -31,13 +31,13 @@
             and asi.employee_id = #{params.employeeId}
         </if>
         <if test="params.employeeName!=null">
-            and employee_name = #{params.employeeName}
+            and e.name = #{params.employeeName}
         </if>
         <if test="params.departmentName!=null and params.departmentName!='' ">
             and e.departmentName = #{params.departmentName}
         </if>
         <if test="params.itemName!=null" >
-            and item_name = #{params.itemName}
+            and i.name = #{params.itemName}
         </if>
         <if test="params.minValue!=null and params.minValue>=0">
             and asi.value >= #{params.minValue}

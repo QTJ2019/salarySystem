@@ -25,9 +25,6 @@
         <if test="params.effective!=null">
             and i.effective = #{params.effective}
         </if>
-        <if test="params.description!=null ">
-            and i.description = #{params.description}
-        </if>
 
     </select>
 </mapper>

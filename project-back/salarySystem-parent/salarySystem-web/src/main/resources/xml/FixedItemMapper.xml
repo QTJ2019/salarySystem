@@ -42,37 +42,37 @@
          and e.id=fi.employee_id
          and fi.employee_id =#{employeeId}
     </select>
-<!--    <select id="selectBy" resultType="com.scau.entity.FixedItem">-->
-<!--        select-->
-<!--        fi.id,-->
-<!--        e.departmentId,-->
-<!--        e.departmentName,-->
-<!--        e.stationId,-->
-<!--        e.stationName,-->
-<!--        fi.employee_id,-->
-<!--        e.name as 'employee_name',-->
-<!--        fi.item_id,-->
-<!--        i.name as 'item_name',-->
-<!--        fi.value,-->
-<!--        fi.date-->
-<!--         from-->
-<!--         item as i,employee as e,fixed_item as fi-->
-<!--         where-->
-<!--         i.id = fi.item_id-->
-<!--         and e.id=fi.employee_id-->
-<!--        <if test="employeeId!=null and employeeId>0">-->
-<!--            and fi.employee_id = #{employeeId}-->
-<!--        </if>-->
-<!--        <if test="departmentId!=null and departmentId>0">-->
-<!--            and e.departmentId=#{departmentId}-->
-<!--        </if>-->
-<!--        <if test="stationId!=null and  stationId>0">-->
-<!--            and e.stationId = #{stationId}-->
-<!--        </if>-->
-<!--        <if test="itemId!=null and  itemId>0">-->
-<!--            and fi.item_id = #{itemId}-->
-<!--        </if>-->
-<!--    </select>-->
+    <!--    <select id="selectBy" resultType="com.scau.entity.FixedItem">-->
+    <!--        select-->
+    <!--        fi.id,-->
+    <!--        e.departmentId,-->
+    <!--        e.departmentName,-->
+    <!--        e.stationId,-->
+    <!--        e.stationName,-->
+    <!--        fi.employee_id,-->
+    <!--        e.name as 'employee_name',-->
+    <!--        fi.item_id,-->
+    <!--        i.name as 'item_name',-->
+    <!--        fi.value,-->
+    <!--        fi.date-->
+    <!--         from-->
+    <!--         item as i,employee as e,fixed_item as fi-->
+    <!--         where-->
+    <!--         i.id = fi.item_id-->
+    <!--         and e.id=fi.employee_id-->
+    <!--        <if test="employeeId!=null and employeeId>0">-->
+    <!--            and fi.employee_id = #{employeeId}-->
+    <!--        </if>-->
+    <!--        <if test="departmentId!=null and departmentId>0">-->
+    <!--            and e.departmentId=#{departmentId}-->
+    <!--        </if>-->
+    <!--        <if test="stationId!=null and  stationId>0">-->
+    <!--            and e.stationId = #{stationId}-->
+    <!--        </if>-->
+    <!--        <if test="itemId!=null and  itemId>0">-->
+    <!--            and fi.item_id = #{itemId}-->
+    <!--        </if>-->
+    <!--    </select>-->
     <select id="selectByCondition" resultType="com.scau.entity.FixedItem">
         select
         fi.id,
@@ -97,7 +97,10 @@
             and fi.employee_id = #{params.employeeId}
         </if>
         <if test="params.employeeName!=null">
-            and employee_name = #{params.employeeName}
+            and e.name = #{params.employeeName}
+        </if>
+        <if test="params.departmentId!=null and params.departmentId>0">
+            and e.departmentId = #{params.departmentId}
         </if>
         <if test="params.departmentName!=null and params.departmentName!='' ">
             and e.departmentName = #{params.departmentName}
